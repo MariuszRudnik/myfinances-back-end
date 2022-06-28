@@ -5,23 +5,11 @@ import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import { AuthModule } from './auth/auth.module';
-
-
+import {orm} from "./utils/orm";
 
 @Module({
   imports: [
-      TypeOrmModule.forRoot( {
-          "type": "mysql",
-          "host": "localhost",
-          "port": 8889,
-          "username": "root",
-          "password": "root",
-          "database": "myfinances",
-          "entities": ["dist/**/**.entity{.ts,.js}"],
-          "bigNumberStrings": false,
-          "logging": true,
-          "synchronize": true
-      }),
+      TypeOrmModule.forRoot(orm),
       UserModule,
       AuthModule
       ],

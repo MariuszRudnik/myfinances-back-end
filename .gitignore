@@ -37,3 +37,4 @@ lerna-debug.log*
 # My Files Ignore
 
 ./src/utils/salt.ts
+./src/utils/orm.js
