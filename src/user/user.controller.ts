@@ -1,7 +1,7 @@
 import {Body, Controller, Inject, Post} from '@nestjs/common';
 import {UserService} from "./user.service";
 import {RegisterDto} from "./dto/register.dto";
-import {RegisterUserResponse} from "../../interface";
+import {RegisterUserResponse} from "../../types/authentication/register";
 
 
 @Controller('user')
