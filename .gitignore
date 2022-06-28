@@ -35,4 +35,5 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # My Files Ignore
-oremTypes.js
+
+./src/utils/salt.ts

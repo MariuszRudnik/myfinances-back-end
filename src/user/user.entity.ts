@@ -17,5 +17,5 @@ export class User extends BaseEntity{
         nullable: true,
         default: null,
     })
-    currentTokenID:string | null
+    currentTokenId :string | null
 }
