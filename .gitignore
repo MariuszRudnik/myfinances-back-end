@@ -38,3 +38,5 @@ lerna-debug.log*
 
 ./src/utils/salt.ts
 ./src/utils/orm.js
+src/utils/orm.js
+src/utils/salt.ts
