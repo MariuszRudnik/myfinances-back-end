@@ -10,6 +10,6 @@ export class expenseCategory extends BaseEntity{
     })
     categoryName: string;
 
-    @Column({ nullable: true })
+    @Column()
     usersId:string
 }
