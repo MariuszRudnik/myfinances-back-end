@@ -7,13 +7,19 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import { AuthModule } from './auth/auth.module';
 import {orm} from "./utils/orm";
 import { ExpensecategoryModule } from './expensecategory/expensecategory.module';
+import { WalletModule } from './wallet/wallet.module';
+import { ListOfExpensesModule } from './list-of-expenses/list-of-expenses.module';
+import { ListOfWalletsModule } from './list-of-wallets/list-of-wallets.module';
 
 @Module({
   imports: [
       TypeOrmModule.forRoot(orm),
       UserModule,
       AuthModule,
-      ExpensecategoryModule
+      ExpensecategoryModule,
+      WalletModule,
+      ListOfExpensesModule,
+      ListOfWalletsModule
       ],
   controllers: [AppController, UserController],
   providers: [AppService],

@@ -18,6 +18,7 @@ export class ExpensecategoryController {
     return this.expensecategoryService.addCategory(categoryName, user)
   }
 
+
   @Get('/')
   @UseGuards(AuthGuard('jwt'))
   showUserCategory(

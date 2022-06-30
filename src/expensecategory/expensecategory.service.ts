@@ -1,43 +1,43 @@
 import { Injectable } from '@nestjs/common';
-import {AddExpenseCategoryDto} from "./dto/add.expensecategory.dto";
 import {expenseCategory} from "./expensecategory.entity";
 import {User} from "../user/user.entity";
 
 @Injectable()
 export class ExpensecategoryService {
 
-    async addCategory(categoryName:string, user:User) {
+    async addCategory(categoryName:string, user) {
         const category = new expenseCategory;
-        category.categoryName = categoryName;
-        category.usersId = user.id;
+        category.category = categoryName;
+        category.user = user.id;
         await category.save()
-
         return{
-            categoryName: category.categoryName
+            categoryName,
         }
     }
 
-    async showCategory(user:User) {
+    async showCategory(user) {
         const {id} = user;
-        const showCategory = await expenseCategory.find({
+        const category =  await expenseCategory.find({
+            //relations: [ 'user'],
             where: {
-                usersId: id
+                user: {id}
             }
-        })
+        });
         return{
-            showCategory
+            category
         }
-
     }
 
     async removeCategory(user: User, idCategory: string) {
         const {id} = user;
         const findCategory = await expenseCategory.findOne({
+            relations: [ 'user'],
             where:{
                 id: idCategory
             }
-        })
-        if(id === findCategory.usersId){
+        });
+
+        if(id === findCategory.user.id){
             await findCategory.remove()
             return {
                 isSuccess: true
