@@ -21,8 +21,6 @@ export class ListOfWallet extends BaseEntity {
     })
     chooseACurrency:string;
 
-    // @OneToMany(()=> Wallet, (wallet)=> wallet.wallet)
-    // wallet: Wallet[]
 
     @OneToMany(()=> Transaction, (transaction) =>  transaction.wallet )
     transaction: Transaction[]

@@ -1,4 +1,4 @@
-import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {ListOfWallet} from "../../list-of-wallets/entities/list-of-wallet.entity";
 
 @Entity()
@@ -18,12 +18,14 @@ export class Transaction extends BaseEntity  {
     price: number;
 
     @Column({
-        default: () => 'CURRENT_TIMESTAMP'
+        nullable: true,
+        //default: () => 'CURRENT_TIMESTAMP'
     })
     dateExpenses: Date
 
 
     @ManyToOne(()=> ListOfWallet, (wallet)=> wallet.transaction)
-    wallet: ListOfWallet
+    @JoinColumn()
+    wallet: string;
 
 }

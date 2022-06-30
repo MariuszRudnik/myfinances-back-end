@@ -10,13 +10,14 @@ import {User} from "../user/user.entity";
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
-  @Post('/')
+  @Post('/:wallet')
   @UseGuards(AuthGuard('jwt'))
   create(
       @Body() createTransactionDto: CreateTransactionDto,
       @UserObj() user: User,
+      @Param('wallet') wallet: string
   ) {
-    return this.transactionsService.create(createTransactionDto, user);
+    return this.transactionsService.create(createTransactionDto, user, wallet);
   }
 
   @Get()
