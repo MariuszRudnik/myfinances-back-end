@@ -1,6 +1,6 @@
 import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import {Wallet} from "../../wallet/entities/wallet.entity";
 import {User} from "../../user/user.entity";
+import {Transaction} from "../../transactions/entities/transaction.entity";
 
 @Entity()
 export class ListOfWallet extends BaseEntity {
@@ -16,13 +16,19 @@ export class ListOfWallet extends BaseEntity {
     @Column()
     openingBalance: number;
 
-    @Column()
-    chooseACurrency:number
+    @Column({
+        length: 30
+    })
+    chooseACurrency:string;
 
-    @OneToMany(()=> Wallet, (wallet)=> wallet.wallet)
-    wallet: Wallet[]
+    // @OneToMany(()=> Wallet, (wallet)=> wallet.wallet)
+    // wallet: Wallet[]
+
+    @OneToMany(()=> Transaction, (transaction) =>  transaction.wallet )
+    transaction: Transaction[]
 
     @ManyToOne(()=> User, (user)=> user.listOfWallet)
     user: User
+
 
 }

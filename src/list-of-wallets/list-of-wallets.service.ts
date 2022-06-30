@@ -1,15 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { CreateListOfWalletDto } from './dto/create-list-of-wallet.dto';
 import { UpdateListOfWalletDto } from './dto/update-list-of-wallet.dto';
+import {ListOfWallet} from "./entities/list-of-wallet.entity";
+
 
 @Injectable()
 export class ListOfWalletsService {
-  create(createListOfWalletDto: CreateListOfWalletDto) {
-    return 'This action adds a new listOfWallet';
+  async create(createListOfWalletDto: CreateListOfWalletDto, user) {
+
+    const wallet = new ListOfWallet;
+    wallet.userId = user.id;
+    wallet.nameWalled = createListOfWalletDto.nameWalled;
+    wallet.openingBalance = createListOfWalletDto.openingBalance;
+    wallet.chooseACurrency = createListOfWalletDto.chooseACurrency;
+    await wallet.save()
+
+    return {
+      wallet
+    }
+
   }
 
-  findAll() {
-    return `This action returns all listOfWallets`;
+  async findAll(user) {
+   return await ListOfWallet.find({
+      where: {
+        userId:user.id
+      }
+    })
   }
 
   findOne(id: number) {

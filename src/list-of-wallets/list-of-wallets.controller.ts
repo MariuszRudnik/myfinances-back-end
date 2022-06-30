@@ -1,20 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, UseGuards} from '@nestjs/common';
 import { ListOfWalletsService } from './list-of-wallets.service';
 import { CreateListOfWalletDto } from './dto/create-list-of-wallet.dto';
 import { UpdateListOfWalletDto } from './dto/update-list-of-wallet.dto';
+import {AuthGuard} from "@nestjs/passport";
+import {UserObj} from "../decoratois/userobj.decorator";
+import {User} from "../user/user.entity";
 
 @Controller('list-of-wallets')
 export class ListOfWalletsController {
   constructor(private readonly listOfWalletsService: ListOfWalletsService) {}
 
-  @Post()
-  create(@Body() createListOfWalletDto: CreateListOfWalletDto) {
-    return this.listOfWalletsService.create(createListOfWalletDto);
+  @Post('/')
+  @UseGuards(AuthGuard('jwt'))
+  create(
+      @Body() createListOfWalletDto: CreateListOfWalletDto,
+      @UserObj() user: User,
+  ) {
+    return this.listOfWalletsService.create(createListOfWalletDto, user);
   }
 
-  @Get()
-  findAll() {
-    return this.listOfWalletsService.findAll();
+  @Get('/')
+  @UseGuards(AuthGuard('jwt'))
+  findAll(
+      @UserObj() user: User,
+  ) {
+    return this.listOfWalletsService.findAll(user);
   }
 
   @Get(':id')
