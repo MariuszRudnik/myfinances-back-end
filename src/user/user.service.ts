@@ -19,4 +19,9 @@ export class UserService {
         await user.save();
         return this.filter(user)
     }
+
+    async login(user) {
+        const {email} =user;
+        return {email}
+    }
 }
