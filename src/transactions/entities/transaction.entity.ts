@@ -19,13 +19,15 @@ export class Transaction extends BaseEntity  {
 
     @Column({
         nullable: true,
-        //default: () => 'CURRENT_TIMESTAMP'
+         //default: () => 'CURRENT_TIMESTAMP'
     })
     dateExpenses: Date
 
+    @Column()
+    operations: string;
 
-    @ManyToOne(()=> ListOfWallet, (wallet)=> wallet.transaction)
-    @JoinColumn()
-    wallet: string;
+    //@ManyToOne(()=> ListOfWallet, (wallet)=> wallet.transaction)
+    @Column()
+    wallet: string
 
 }

@@ -23,6 +23,7 @@ export class ListOfWalletsController {
   @UseGuards(AuthGuard('jwt'))
   findAll(
       @UserObj() user: User,
+      @Param('wallet') wallet: string
   ) {
     return this.listOfWalletsService.findAll(user);
   }

@@ -20,23 +20,26 @@ export class TransactionsController {
     return this.transactionsService.create(createTransactionDto, user, wallet);
   }
 
-  @Get()
-  findAll() {
-    return this.transactionsService.findAll();
+  @Get('/:wallet')
+  @UseGuards(AuthGuard('jwt'))
+  findAll(
+      @Param('wallet') wallet: string
+  ) {
+    return this.transactionsService.findAll(wallet);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.transactionsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
-    return this.transactionsService.update(+id, updateTransactionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.transactionsService.remove(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.transactionsService.findOne(+id);
+  // }
+  //
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
+  //   return this.transactionsService.update(+id, updateTransactionDto);
+  // }
+  //
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.transactionsService.remove(+id);
+  // }
 }

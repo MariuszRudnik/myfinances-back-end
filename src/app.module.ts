@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import {forwardRef, Module} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserController } from './user/user.controller';
@@ -16,8 +16,10 @@ import {orm} from './utils/orm'
       UserModule,
       AuthModule,
       ExpensecategoryModule,
-      ListOfWalletsModule,
-      TransactionsModule
+      // ListOfWalletsModule,
+      // TransactionsModule,
+      forwardRef(() =>ListOfWalletsModule),
+      forwardRef(() =>TransactionsModule),
       ],
   controllers: [AppController, UserController],
   providers: [AppService],

@@ -3,4 +3,5 @@ export class CreateTransactionDto {
     category: string;
     price: number;
     dateExpenses: Date;
+    operations: string;
 }

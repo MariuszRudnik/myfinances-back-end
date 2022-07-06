@@ -1,4 +1,4 @@
-import {BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "../../user/user.entity";
 import {Transaction} from "../../transactions/entities/transaction.entity";
 
@@ -22,8 +22,8 @@ export class ListOfWallet extends BaseEntity {
     chooseACurrency:string;
 
 
-    @OneToMany(()=> Transaction, (transaction) =>  transaction.wallet )
-    transaction: Transaction[]
+    // @OneToMany(()=> Transaction, (transaction) =>  transaction.wallet )
+    // transaction: string
 
     @ManyToOne(()=> User, (user)=> user.listOfWallet)
     user: User

@@ -1,11 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import {forwardRef, Inject, Injectable} from '@nestjs/common';
 import { CreateListOfWalletDto } from './dto/create-list-of-wallet.dto';
 import { UpdateListOfWalletDto } from './dto/update-list-of-wallet.dto';
 import {ListOfWallet} from "./entities/list-of-wallet.entity";
+import {TransactionsService} from "../transactions/transactions.service";
 
 
 @Injectable()
 export class ListOfWalletsService {
+  constructor(
+      @Inject(forwardRef(()=>TransactionsService)) private transaction: TransactionsService ,
+  ) {}
+
   async create(createListOfWalletDto: CreateListOfWalletDto, user) {
 
     const wallet = new ListOfWallet;
