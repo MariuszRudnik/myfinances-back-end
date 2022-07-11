@@ -28,18 +28,18 @@ export class TransactionsController {
     return this.transactionsService.findAll(wallet);
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.transactionsService.findOne(+id);
-  // }
+  @Get('/expenses/:id')
+  findOneWallet(@Param('id') id: string) {
+    return this.transactionsService.findOneWallet( id);
+  }
   //
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
   //   return this.transactionsService.update(+id, updateTransactionDto);
   // }
   //
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.transactionsService.remove(+id);
-  // }
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.transactionsService.remove(id);
+  }
 }

@@ -34,8 +34,13 @@ export class ListOfWalletsService {
     })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} listOfWallet`;
+  async findOne(id: string, user) {
+    return await ListOfWallet.find({
+      where: {
+        id: id,
+        userId:user.id
+      }
+    })
   }
 
   update(id: number, updateListOfWalletDto: UpdateListOfWalletDto) {

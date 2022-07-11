@@ -29,8 +29,12 @@ export class ListOfWalletsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.listOfWalletsService.findOne(+id);
+  @UseGuards(AuthGuard('jwt'))
+  findOne(
+      @UserObj() user: User,
+      @Param('id') id: string
+  ) {
+    return this.listOfWalletsService.findOne( id , user);
   }
 
   @Patch(':id')

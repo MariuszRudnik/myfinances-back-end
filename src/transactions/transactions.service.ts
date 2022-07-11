@@ -1,5 +1,5 @@
 import {forwardRef, Inject, Injectable} from '@nestjs/common';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
+import {CreateTransactionDto, ExpensesDto} from './dto/create-transaction.dto';
 import {Transaction} from "./entities/transaction.entity";
 import {ListOfWallet} from "../list-of-wallets/entities/list-of-wallet.entity";
 import {ListOfWalletsService} from "../list-of-wallets/list-of-wallets.service";
@@ -52,15 +52,48 @@ export class TransactionsService {
 
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} transaction`;
-  // }
+  async findOneWallet(id: string) {
+    let expensesWallet = 0;
+    let influenceWallet = 0;
+
+    const expenses = await Transaction.find({
+    where:{
+      wallet: id,
+      operations: "Expenses"
+    }});
+    for (let i=0; i< expenses.length; i++){
+      expensesWallet = expensesWallet + expenses[i].price;
+    }
+    const influence = await Transaction.find({
+      where:{
+        wallet: id,
+        operations: "Influence"
+      }});
+    for (let i=0; i< influence.length; i++){
+      influenceWallet = influenceWallet + influence[i].price;
+    }
+    return{
+      expenses:expensesWallet,
+      influence:influenceWallet
+    }
+  }
   //
   // update(id: number, updateTransactionDto: UpdateTransactionDto) {
   //   return `This action updates a #${id} transaction`;
   // }
   //
-  // remove(id: number) {
-  //   return `This action removes a #${id} transaction`;
-  // }
+  async remove(id: string) {
+    const removeTransaction = await Transaction.find({
+      where:{
+        id: id
+      }
+  });
+    if(!removeTransaction){
+      throw new Error('User not found')
+    }
+    await Transaction.createQueryBuilder().delete().where("id=:id",{id}).execute()
+    return{
+      removeTransaction : removeTransaction
+    }
+  }
 }
